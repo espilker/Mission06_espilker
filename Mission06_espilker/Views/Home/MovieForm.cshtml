@@ -1,0 +1,47 @@
+﻿@{
+    ViewData["Title"] = "Movie Form";
+}
+@model Mission06_espilker.Models.MovieModel
+
+    <link href="~/css/StyleSheet.css" rel="stylesheet" />
+
+<h1>@ViewData["Title"]</h1>
+
+<form method="post">
+    <label>Category: </label>
+    <input asp-for="Category" /> <br />
+
+    <label>Title: </label>
+    <input asp-for="Title" /> <br />
+
+    <label>Year: </label>
+    <input asp-for="Year" /> <br />
+
+    <label>Director: </label>
+    <input asp-for="Director" /> <br />
+
+    @* Let user have a few pre-selected options to choose from *@
+    <label>Rating: </label>
+    <select asp-for="Rating">
+        <option value="G">G</option>
+        <option value="PG">PG</option>
+        <option value="PG-13">PG-13</option>
+        <option value="R">R</option>
+    </select> <br />
+
+    @* User can only choose Yes or No *@
+    <Label>Edited: </Label>
+    <select asp-for="Edited">
+        <option value=true>Yes</option>
+        <option value=false>No</option>
+    </select> <br />
+
+    <label>Lent to: </label>
+    <input asp-for="LentTo" /> <br />
+
+    <label>Notes: </label>
+    <input asp-for="Notes" /> <br />
+
+    <button type="submit">Submit Movie</button>
+</form>
+<div asp-validation-summary="All"></div>
