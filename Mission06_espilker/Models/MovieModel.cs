@@ -13,9 +13,13 @@ namespace Mission06_espilker.Models
         [Required]
         public int MovieId { get; set; }
 
-        //Make these coloumns required
+
+        //Make these columns required
+        //build foreign key relationship
         [Required]
-        public string Category { get; set; }
+        public int CategoryId { get; set; }
+        public Category Category { get; set; }
+
 
         [Required]
         public string Title { get; set; }

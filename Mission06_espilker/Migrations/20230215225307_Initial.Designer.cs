@@ -8,7 +8,7 @@ using Mission06_espilker.Models;
 namespace Mission06_espilker.Migrations
 {
     [DbContext(typeof(MovieContext))]
-    [Migration("20230213221230_Initial")]
+    [Migration("20230215225307_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -17,15 +17,60 @@ namespace Mission06_espilker.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "3.1.32");
 
+            modelBuilder.Entity("Mission06_espilker.Models.Category", b =>
+                {
+                    b.Property<int>("CategoryId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("CategoryName")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("CategoryId");
+
+                    b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            CategoryId = 1,
+                            CategoryName = "Action/Adventure"
+                        },
+                        new
+                        {
+                            CategoryId = 2,
+                            CategoryName = "Fantasy"
+                        },
+                        new
+                        {
+                            CategoryId = 3,
+                            CategoryName = "Comedy"
+                        },
+                        new
+                        {
+                            CategoryId = 4,
+                            CategoryName = "Horror"
+                        },
+                        new
+                        {
+                            CategoryId = 5,
+                            CategoryName = "Romantic"
+                        },
+                        new
+                        {
+                            CategoryId = 6,
+                            CategoryName = "Romantic/Comedy"
+                        });
+                });
+
             modelBuilder.Entity("Mission06_espilker.Models.MovieModel", b =>
                 {
                     b.Property<int>("MovieId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Category")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Director")
                         .IsRequired()
@@ -54,13 +99,15 @@ namespace Mission06_espilker.Migrations
 
                     b.HasKey("MovieId");
 
+                    b.HasIndex("CategoryId");
+
                     b.ToTable("Movies");
 
                     b.HasData(
                         new
                         {
                             MovieId = 1,
-                            Category = "Action/Adventure",
+                            CategoryId = 1,
                             Director = "Christopher Nolan",
                             Edited = false,
                             LentTo = "",
@@ -72,7 +119,7 @@ namespace Mission06_espilker.Migrations
                         new
                         {
                             MovieId = 2,
-                            Category = "Fantasy",
+                            CategoryId = 2,
                             Director = "Peter Jackson",
                             Edited = false,
                             LentTo = "",
@@ -84,7 +131,7 @@ namespace Mission06_espilker.Migrations
                         new
                         {
                             MovieId = 3,
-                            Category = "Action/Adventure",
+                            CategoryId = 1,
                             Director = "James Gunn",
                             Edited = false,
                             LentTo = "",
@@ -93,6 +140,15 @@ namespace Mission06_espilker.Migrations
                             Title = "Guardians of the Galaxy",
                             Year = (ushort)2014
                         });
+                });
+
+            modelBuilder.Entity("Mission06_espilker.Models.MovieModel", b =>
+                {
+                    b.HasOne("Mission06_espilker.Models.Category", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
